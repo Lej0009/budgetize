@@ -1,0 +1,14 @@
+html,
+body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+.bg {
+    background-image: url("misty_trees.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

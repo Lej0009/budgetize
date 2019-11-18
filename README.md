@@ -21,7 +21,7 @@ Features:
 
 •	User Sign up: Users will be able to create a new profile for themselves, allowing them to track their own expenses, based on their own categories.
 
-•	User Login: Users will be able to login after creating a profile. Passwords will be hashed, salted, and possibly peppered.
+•	User Login: Users will be able to login after creating a profile. 
 
 •	Edit, Create, and Delete Categories: Users will be able to create new categories to track their own expenses. Categories will be flexible, and can be edited, and deleted.
 

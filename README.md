@@ -6,9 +6,9 @@ Project Outline Assignment
 
 Submission Instructions
 Overview
-My project will be an expense tracker that will allow users to track their expenses by time, date, and category. Users will be able to create an account, log in, create, edit, and remove expense_categories, create, edit, and remove expenses. They will be able to review all expenses, expenses by month, and expenses by category.
+My project will be an expense tracker that will allow users to track their expenses by date and category. Users will be able to create an account, log in, create, edit, and remove expense_categories, create, edit, and remove expenses. They will be able to review all expenses, expenses by month, and expenses by category.
 
-I decided to make this project because due to poor money management, I unfortunately got myself into quite a bit of debt. Tracking my expenses will better help to prevent this from happening in the future and will help secure financial independence.
+I decided to make this project because due to poor money management, I unfortunately got myself into quite a bit of debt and had no other option than to file bankruptcy. Tracking my expenses will better help to prevent this from happening in the future, and will help secure financial independence.
 
 Features
 •	User Sign up: Users will be able to create a new profile for themselves, allowing them to track their own expenses, based on their own categories.
@@ -21,8 +21,10 @@ Features
 Technologies
 •	Java
 •	Spring Boot
+•	Javascript
 •	Bootstrap
 •	HTML
 •	CSS
 
 What I'll Have to Learn
+Javascript

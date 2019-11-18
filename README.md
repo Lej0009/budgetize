@@ -1,13 +1,13 @@
-#Budgetize - Expense Tracker
+# Budgetize - Expense Tracker
 
-#Overview:
+# Overview:
 
 My project will be an expense tracker that will allow users to track their expenses by date and category. Users will be able to create an account, log in, create, edit, and remove expense_categories, create, edit, and remove expenses. They will be able to review all expenses, expenses by month, and expenses by category.
 
 I decided to make this project because due to poor money management, I unfortunately got myself into quite a bit of debt. Tracking expenses help to prevent getting into debt, and can lead to financial independence. This application will help usesrs to better understand their spending habits, so they may adjust and make smarter financial decisions.
 
 
-##Features:
+## Features:
 
 *User Sign up: Users will be able to create a new profile for themselves, allowing them to track their own expenses, based on their own categories.
 *User Login: Users will be able to login after creating a profile. 
@@ -19,7 +19,7 @@ I decided to make this project because due to poor money management, I unfortuna
 
 
 
-##Technologies:
+## Technologies:
 
 *Java
 *Spring Boot
@@ -29,10 +29,10 @@ I decided to make this project because due to poor money management, I unfortuna
 *CSS
 
 
-###What I'll Have to Learn:
+### What I'll Have to Learn:
 
 Javascript
 
-###Project Tracker
+### Project Tracker
 
 [Trello project tracker](https://trello.com/b/0oxuqyd8/budgetize)

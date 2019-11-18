@@ -17,3 +17,11 @@ body {
     background-size: 100%;
     background-repeat: no-repeat;
 }
+
+#logo {
+    font-family: 'Lobster', sans-serif;
+}
+
+#home-title {
+    font-family: 'Lobster', sans-serif;
+}

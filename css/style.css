@@ -6,9 +6,14 @@ body {
 }
 
 .bg {
-    background-image: url("misty_trees.jpg");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.jumbotron {
+    background-image: url("images/pig3.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }

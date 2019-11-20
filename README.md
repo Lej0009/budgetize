@@ -34,4 +34,4 @@ Javascript
 
 ### Project Tracker
 
-[Trello project tracker](https://trello.com/b/0oxuqyd8/budgetize)
+[Trello project tracker](https://trello.com/b/0oxuqyd8/)

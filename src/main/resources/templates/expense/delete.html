@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+    <nav th:replace="fragments :: navigation"></nav>
+
+    <form method="post">
+
+        <div th:each="expense : ${expenses}" class="checkbox">
+            <input type="checkbox" name="expenseIds" th:value="${expense.id}" th:id="${expense.id}"/>>
+            <label th:for="${expense.id}" th:text="${expense.description}"></label>
+        </div>
+
+    </form>
+
+
+</body>
+</html>

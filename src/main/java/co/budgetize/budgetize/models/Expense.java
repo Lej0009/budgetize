@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,10 +17,8 @@ public class Expense {
     private int id;
 
     @NotNull
-//    @Size(min=10, message = "Date must not be empty")
-    private Date date;
-
-    private String strDate;
+    @Size(min=10, message = "Date must not be empty")
+    private String date;
 
 //    @ManyToOne
     @NotNull
@@ -34,9 +31,9 @@ public class Expense {
     @NotNull
     private Float amount;
 
-    public Expense(String strDate, String category,
+    public Expense(String date, String category,
                    String description, Float amount) {
-        this.strDate = strDate;
+        this.date = date;
         this.category = category;
         this.description = description;
         this.amount = amount;
@@ -45,15 +42,11 @@ public class Expense {
     public Expense() { }
 
     public String getDate() {
-        return strDate;
+        return date;
     }
 
-    public void setDate(@RequestParam String date){
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = formatter.format(date);
-
-//        String strDate = SimpleDateFormat.format(date);
-        this.strDate = strDate;
+    public void setDate(@RequestParam String datepicker){
+        this.date = datepicker;
     }
 
     public String getCategory() {
@@ -81,5 +74,7 @@ public class Expense {
     }
 
 
-
+    public int getExpenseId() {
+        return id;
+    }
 }

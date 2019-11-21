@@ -2,6 +2,7 @@ package co.budgetize.budgetize.controllers;
 
 import co.budgetize.budgetize.models.Expense;
 import co.budgetize.budgetize.models.data.ExpenseDao;
+import co.budgetize.budgetize.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @RequestMapping("budgetize")
@@ -23,6 +21,9 @@ public class ExpenseController {
     @Autowired
     private ExpenseDao expenseDao;
 
+    @Autowired
+    private UserDao userDao;
+
     @RequestMapping(value = "")
     public String welcome(Model model) {
         return "expense/welcome";
@@ -30,16 +31,6 @@ public class ExpenseController {
 
     @RequestMapping(value = "welcome")
     public String welcome2(Model model) { return "expense/welcome";}
-
-    @RequestMapping(value = "login")
-    public String login(Model model) {
-        return "expense/login";
-    }
-
-    @RequestMapping(value = "register")
-    public String register(Model model) {
-        return "expense/register";
-    }
 
     @RequestMapping(value = "index")
     public String index(Model model) {
@@ -69,7 +60,8 @@ public class ExpenseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense,
-                                        Errors errors, Model model) {
+                                        Errors errors, @RequestParam String datepicker, @RequestParam String category,
+                                        @RequestParam String description, @RequestParam Float amount, Model model) {
 
 
         //if user in session:
@@ -77,15 +69,12 @@ public class ExpenseController {
             model.addAttribute("title", "Add Expense");
             return "expense/add";
         }
+
 //        Expense exp = expenseDao.findOne(id);
-
-//        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-//        SimpleDateFormat.format(date);
-
-//        newExpense.setDate(strDate);
-//        newExpense.setCategory(category);
-//        newExpense.setDescription(description);
-//        newExpense.setAmount(amount);
+        newExpense.setDate(datepicker);
+        newExpense.setCategory(category);
+        newExpense.setDescription(description);
+        newExpense.setAmount(amount);
         expenseDao.save(newExpense);
         return "redirect:";
 

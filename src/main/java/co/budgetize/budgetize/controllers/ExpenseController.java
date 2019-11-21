@@ -2,7 +2,6 @@ package co.budgetize.budgetize.controllers;
 
 import co.budgetize.budgetize.models.Expense;
 import co.budgetize.budgetize.models.data.ExpenseDao;
-import co.budgetize.budgetize.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +19,6 @@ public class ExpenseController {
 
     @Autowired
     private ExpenseDao expenseDao;
-
-    @Autowired
-    private UserDao userDao;
 
     @RequestMapping(value = "")
     public String welcome(Model model) {

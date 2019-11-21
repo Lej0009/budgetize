@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Entity
 public class Expense {

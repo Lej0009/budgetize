@@ -21,6 +21,8 @@ public class Expense {
 //    @Size(min=10, message = "Date must not be empty")
     private Date date;
 
+    private String strDate;
+
 //    @ManyToOne
     @NotNull
     private String category;
@@ -32,9 +34,9 @@ public class Expense {
     @NotNull
     private Float amount;
 
-    public Expense(Date date, String category,
+    public Expense(String strDate, String category,
                    String description, Float amount) {
-        this.date = date;
+        this.strDate = strDate;
         this.category = category;
         this.description = description;
         this.amount = amount;
@@ -42,14 +44,16 @@ public class Expense {
 
     public Expense() { }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return strDate;
     }
 
-    public void setDate(Date date){
+    public void setDate(@RequestParam String date){
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = formatter.format(date);
-        this.date = date;
+
+//        String strDate = SimpleDateFormat.format(date);
+        this.strDate = strDate;
     }
 
     public String getCategory() {

@@ -58,8 +58,7 @@ public class ExpenseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense,
-                                        Errors errors, @RequestParam Date date, @RequestParam String category,
-                                        @RequestParam String description, @RequestParam Float amount, Model model) {
+                                        Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Expense");
@@ -67,13 +66,13 @@ public class ExpenseController {
         }
 //        Expense exp = expenseDao.findOne(id);
 
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String strDate = formatter.format(date);
+//        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat.format(date);
 
-        newExpense.setDate(date);
-        newExpense.setCategory(category);
-        newExpense.setDescription(description);
-        newExpense.setAmount(amount);
+//        newExpense.setDate(strDate);
+//        newExpense.setCategory(category);
+//        newExpense.setDescription(description);
+//        newExpense.setAmount(amount);
         expenseDao.save(newExpense);
         return "redirect:";
     }
@@ -98,8 +97,10 @@ public class ExpenseController {
     @RequestMapping(value = "bymonth")
     public String byMonth(Model model) {
 
+
+
         model.addAttribute("expenses", expenseDao.findAll());
-        model.addAttribute("title", "My Expenses");
+        model.addAttribute("title", "Expenses by Month");
 
         return "expense/bymonth";
     }
@@ -108,7 +109,7 @@ public class ExpenseController {
     public String byCategory(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
-        model.addAttribute("title", "My Expenses");
+        model.addAttribute("title", "Expenses by Category");
 
         return "expense/bycategory";
     }

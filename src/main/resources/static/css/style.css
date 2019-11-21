@@ -12,8 +12,8 @@ body {
     background-size: cover;
 }
 
-.jumbotron {
-    background-image: url("images/pig3.jpg");
+#jumbotron {
+    background-image: url(pig3.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
 }

@@ -23,6 +23,7 @@ I decided to make this project because due to poor money management, I unfortuna
 * Java
 * Spring Boot
 * Javascript
+* jQuery
 * Bootstrap
 * Thymeleaf
 * HTML
@@ -31,7 +32,7 @@ I decided to make this project because due to poor money management, I unfortuna
 
 ### What I'll Have to Learn:
 
-Javascript
+Javascript and jQuery
 
 ### Project Tracker
 

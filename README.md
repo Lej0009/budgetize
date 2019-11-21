@@ -24,6 +24,7 @@ I decided to make this project because due to poor money management, I unfortuna
 * Spring Boot
 * Javascript
 * Bootstrap
+* Thymeleaf
 * HTML
 * CSS
 

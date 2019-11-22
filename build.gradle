@@ -1,85 +1,36 @@
-buildscript {
-	ext {
-		springBootVersion = '1.5.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+	id 'org.springframework.boot' version '2.2.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+group = 'co.budgetize'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
-jar {
-	baseName = 'expense-mvc'
-	version = '0.0.1-SNAPSHOT'
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
 }
-
-sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
 }
 
-//group = 'co.okta.springsecurityauth'
-
-
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-//	compile('org.springframework.boot:spring-boot-starter-security')
-//	compile('org.springframework.boot:spring-boot-starter-validation')
-	compile('mysql:mysql-connector-java')
-	runtime('org.springframework.boot:spring-boot-devtools')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-//	implementation('org.springframework.boot:spring-boot-starter-security')
-//	implementation('org.springframework.boot:spring-boot-starter-web')
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.springframework.session'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 }
 
-bootRun {
-	addResources = true
+test {
+	useJUnitPlatform()
 }
-
-
-
-
-
-//plugins {
-//	id 'org.springframework.boot' version '2.2.1.RELEASE'
-//	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-//	id 'java'
-//}
-//
-//group = 'co.budgetize'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '1.8'
-//
-//configurations {
-//	developmentOnly
-//	runtimeClasspath {
-//		extendsFrom developmentOnly
-//	}
-//}
-//
-//repositories {
-//	mavenCentral()
-//}
-//
-//dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-//		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-//	}
-//}
-//
-//test {
-//	useJUnitPlatform()
-//}

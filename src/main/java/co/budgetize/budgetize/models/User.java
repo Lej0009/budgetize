@@ -2,20 +2,23 @@ package co.budgetize.budgetize.models;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
-    private int userId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer userId;
 
-    @Email(message = "Invalid email address")
+    @OneToMany(mappedBy = "user")
+    private List<Expense> expenses = new ArrayList<>();
+
+    @javax.validation.constraints.Email(message = "Invalid email address")
     private String email;
 
     @NotNull
@@ -45,4 +48,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Integer getUserId()  { return userId; }
 }

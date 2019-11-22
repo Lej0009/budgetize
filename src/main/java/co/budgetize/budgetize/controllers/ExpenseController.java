@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("budgetize")
@@ -22,6 +23,7 @@ public class ExpenseController {
     @Autowired
     private ExpenseDao expenseDao;
 
+    // TODO: don't think I need this
     @Autowired
     private UserDao userDao;
 
@@ -34,9 +36,15 @@ public class ExpenseController {
     public String welcome2(Model model) { return "expense/welcome";}
 
     @RequestMapping(value = "index")
-    public String index(Model model) {
+    public String index(Model model, Integer USER_ID) {
 
         //if user in session:
+        //TODO: figure out how to get all expenses for the current user
+//        model.addAttribute("expenses", expenseDao.findById(USER_ID));
+
+        //TODO:
+        //HttpSession
+
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "My Expenses");
 
@@ -71,8 +79,9 @@ public class ExpenseController {
             return "expense/add";
         }
 
-        User user = userDao.findOne(userId);
-        newExpense.setUser(user);
+        // TODO: don't think I need this
+//        Optional<User> user = userDao.findById(userId);
+//        newExpense.setUser(user);
         expenseDao.save(newExpense);
         return "redirect:";
 
@@ -93,11 +102,13 @@ public class ExpenseController {
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public String processRemoveExpenseForm(@RequestParam int[] expenseIds) {
+    public String processRemoveExpenseForm(@ModelAttribute Expense delExpense, @RequestParam int[] expenseIds) {
 
         //if user in session:
         for (int expenseId : expenseIds) {
-            expenseDao.delete(expenseId);
+            Optional<Expense> expense = expenseDao.findById(expenseId);
+            delExpense.setExpenseId(expenseId);
+            expenseDao.delete(delExpense);
         }
 
         return "redirect:";

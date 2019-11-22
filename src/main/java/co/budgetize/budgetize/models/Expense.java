@@ -1,23 +1,26 @@
 package co.budgetize.budgetize.models;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Optional;
 
 @Entity
 public class Expense {
 
     @Id
     @GeneratedValue
-    private int expenseId;
+    private Integer expenseId;
 
     @NotNull
     @Size(min=10, message = "Date must not be empty")
     private String date;
 
     @ManyToOne
+    @JoinColumn(name="USER_ID")
     private User user;
 
     @NotNull
@@ -39,14 +42,6 @@ public class Expense {
     }
 
     public Expense() { }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getDate() {
         return date;
@@ -83,5 +78,9 @@ public class Expense {
 
     public int getExpenseId() {
         return expenseId;
+    }
+
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
     }
 }

@@ -11,13 +11,15 @@ public class Expense {
 
     @Id
     @GeneratedValue
-    private int id;
+    private int expenseId;
 
     @NotNull
     @Size(min=10, message = "Date must not be empty")
     private String date;
 
-//    @ManyToOne
+    @ManyToOne
+    private User user;
+
     @NotNull
     private String category;
 
@@ -37,6 +39,14 @@ public class Expense {
     }
 
     public Expense() { }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getDate() {
         return date;
@@ -72,6 +82,6 @@ public class Expense {
 
 
     public int getExpenseId() {
-        return id;
+        return expenseId;
     }
 }

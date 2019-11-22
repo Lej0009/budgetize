@@ -1,7 +1,9 @@
 package co.budgetize.budgetize.controllers;
 
 import co.budgetize.budgetize.models.Expense;
+import co.budgetize.budgetize.models.User;
 import co.budgetize.budgetize.models.data.ExpenseDao;
+import co.budgetize.budgetize.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class ExpenseController {
 
     @Autowired
     private ExpenseDao expenseDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value = "")
     public String welcome(Model model) {
@@ -56,8 +61,8 @@ public class ExpenseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense,
-                                        Errors errors, @RequestParam String datepicker, @RequestParam String category,
-                                        @RequestParam String description, @RequestParam Float amount, Model model) {
+                                        Errors errors, @RequestParam int userId,
+                                        @RequestParam String email, Model model) {
 
 
         //if user in session:
@@ -66,11 +71,8 @@ public class ExpenseController {
             return "expense/add";
         }
 
-//        Expense exp = expenseDao.findOne(id);
-        newExpense.setDate(datepicker);
-        newExpense.setCategory(category);
-        newExpense.setDescription(description);
-        newExpense.setAmount(amount);
+        User user = userDao.findOne(userId);
+        newExpense.setUser(user);
         expenseDao.save(newExpense);
         return "redirect:";
 

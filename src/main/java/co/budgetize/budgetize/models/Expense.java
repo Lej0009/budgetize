@@ -19,7 +19,6 @@ public class Expense {
 
 //    @NotNull
 //    @Size(min=10, message = "Date must not be empty")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @ManyToOne

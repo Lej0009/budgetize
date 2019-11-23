@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class ExpenseController {
     @Autowired
     private ExpenseDao expenseDao;
 
-    // TODO: don't think I need this
+    // TODO: don't think I need this?
     @Autowired
     private UserDao userDao;
 
@@ -43,7 +44,8 @@ public class ExpenseController {
     public String index(Model model, Integer USER_ID) {
 
         //TODO: figure out how to get all expenses for the current user
-//        model.addAttribute("expenses", expenseDao.findById(USER_ID));
+        //TODO: filtered by current active session logged in user
+//        model.addAttribute("expenses", expenseDao.findAll(USER_ID));
 
         //TODO:
         //HttpSession
@@ -65,16 +67,14 @@ public class ExpenseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense, Errors errors,
-                                        @RequestParam String datepicker, Model model) {
+                                        @RequestParam Date datepicker, Model model) {
         model.addAttribute(newExpense);
 
-        try {
-            SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-            Date dt2 = dt1.parse(dt1.format(datepicker));
-            newExpense.setDate(dt2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        // TODO: getting error "Cannot format given Object as a Date" when this
+        // TODO: part of code is included. With date set as a String or a Date
+//        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+//        String dt2 = dt1.format(datepicker);
+        newExpense.setDate(datepicker);
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Expense");

@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
+    // Routing to view the register page
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public String register(Model model) {
         model.addAttribute(new User());
@@ -28,6 +29,7 @@ public class UserController {
         return "expense/register";
     }
 
+    // validate user input and store user to database
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String register(Model model, @ModelAttribute("newUser") User newUser, Errors errors,
                            @RequestParam String verifypassword) {
@@ -46,17 +48,20 @@ public class UserController {
             userDao.save(newUser);
             return "expense/index";
         }
-
+        model.addAttribute("title", "Register");
         return "expense/register";
     }
 
+    // Routing to view the login page
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("title", "Login");
         return "expense/login";
     }
 
-    public boolean loginCheck(@RequestParam String username, @RequestParam String password){
+    // Verify that the login email and password exists in the database
+    // If userId is found with matching email and password, set login to True
+    public boolean loginCheck(@RequestParam String email, @RequestParam String password){
         String query;
         boolean login = false;
 
@@ -85,53 +90,15 @@ public class UserController {
             e.printStackTrace();
         }
         return login;
-
-
-        //        String query;
-//        String dbUsername, dbPassword;
-//        boolean login = false;
-//
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/budgetize4", "budgetize4", "money");
-//            Statement stmt = (Statement) con.createStatement();
-//            query = "SELECT username, password FROM user;";
-//            stmt.executeQuery(query);
-//            ResultSet rs = stmt.getResultSet();
-//
-//            while(rs.next()){
-//                dbUsername = rs.getString("username");
-//                dbPassword = rs.getString("password");
-//
-//                if(dbUsername.equals(username) && dbPassword.equals(password)){
-////                    System.out.println("OK");
-//                    login = true;
-//                }
-////                System.out.println(username + password + " " + dbUsername + dbPassword);
-//            }
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//        return login;
     }
 
-
-    @RequestMapping(value = "login", method=RequestMethod.POST)
-    public String login(Model model, @RequestParam String username, @RequestParam String password) {
-        if (loginCheck(username, password) == true) {
+    // TODO: getting error that email parameter is not present
+    @RequestMapping(value = "login", method=RequestMethod.GET)
+    public String login(Model model, @RequestParam String email, @RequestParam String password) {
+        if (loginCheck(email, password) == true) {
             return "expense/index";
         }
-
+        model.addAttribute("title", "Login");
         return "expense/login";
     }
 

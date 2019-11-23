@@ -7,9 +7,9 @@
 
     <nav th:replace="fragments :: navigation"></nav>
 
-    <div class="container">
-        <h1 th:text="${title}">Default Title</h1>
-        <br/><br/>
+    <div class="container"><br/>
+        <h4 th:text="${title}">Default Title</h4>
+        <br/>
         <form method="post" th:object="${expenses}">
             <div class="form-group">
                 <label for="datepicker">Date</label>

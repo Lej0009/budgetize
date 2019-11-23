@@ -77,7 +77,6 @@ public class ExpenseController {
             model.addAttribute("title", "Add Expense");
             return "expense/add";
         }
-        newExpense.setUserId(userId);
         expenseDao.save(newExpense);
         return "redirect:";
 

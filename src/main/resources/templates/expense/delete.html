@@ -14,10 +14,10 @@
         <form method="post">
 
             <div th:each="expense : ${expenses}" class="checkbox">
-                <input type="checkbox" name="expenseIds" th:value="${expense.id}" th:id="${expense.id}"/>>
-                <label th:for="${expense.id}" th:text="${expense.description}"></label>
-            </div>
-
+                <input type="checkbox" name="expenseIds" th:value="${expense.expenseId}" th:id="${expense.expenseId}"/>
+                <label th:for="${expense.expenseId}" th:text="${expense.description}"></label>
+            </div><br/>
+            <button type="submit" class="btn btn-info">Remove Expense</button>
         </form>
     </div>
 

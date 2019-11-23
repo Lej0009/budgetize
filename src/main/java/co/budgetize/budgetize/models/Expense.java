@@ -1,23 +1,26 @@
 package co.budgetize.budgetize.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Optional;
 
 @Entity
 public class Expense {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer expenseId;
 
-    @NotNull
-    @Size(min=10, message = "Date must not be empty")
-    private String date;
+//    @NotNull
+//    @Size(min=10, message = "Date must not be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name="USER_ID")
@@ -33,7 +36,7 @@ public class Expense {
     @NotNull
     private Float amount;
 
-    public Expense(String date, String category,
+    public Expense(Date date, String category,
                    String description, Float amount) {
         this.date = date;
         this.category = category;
@@ -43,11 +46,11 @@ public class Expense {
 
     public Expense() { }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(@RequestParam String datepicker){
+    public void setDate(Date datepicker){
         this.date = datepicker;
     }
 
@@ -74,7 +77,6 @@ public class Expense {
     public void setAmount(Float amount) {
         this.amount = amount;
     }
-
 
     public int getExpenseId() {
         return expenseId;

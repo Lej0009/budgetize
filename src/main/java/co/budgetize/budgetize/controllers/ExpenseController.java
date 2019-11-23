@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +42,6 @@ public class ExpenseController {
     @RequestMapping(value = "index")
     public String index(Model model, Integer USER_ID) {
 
-        //if user in session:
         //TODO: figure out how to get all expenses for the current user
 //        model.addAttribute("expenses", expenseDao.findById(USER_ID));
 
@@ -49,91 +52,73 @@ public class ExpenseController {
         model.addAttribute("title", "My Expenses");
 
         return "expense/index";
-
-        // else:
-        // return "login";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddExpenseForm(Model model) {
 
-        //if user in session:
         model.addAttribute("title", "Add Expense");
         model.addAttribute(new Expense());
 
         return "expense/add";
-
-        //else:
-        //return "login";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense,
-                                        @ModelAttribute int userId, Errors errors, Model model) {
+    public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense, Errors errors,
+                                        @RequestParam String datepicker, Model model) {
+        model.addAttribute(newExpense);
 
+        try {
+            SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date dt2 = dt1.parse(dt1.format(datepicker));
+            newExpense.setDate(dt2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        //if user in session:
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Expense");
             return "expense/add";
+        } else {
+            expenseDao.save(newExpense);
+            return "expense/index";
         }
-        expenseDao.save(newExpense);
-        return "redirect:";
-
-        //else:
-        //return "login";
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String displayRemoveExpenseForm(Model model) {
 
-        //if user in session:
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Remove Expense");
         return "expense/delete";
-
-        //else:
-        //return "login";
     }
 
 //    @RequestMapping(value = "delete", method = RequestMethod.POST)
-//    public String processRemoveExpenseForm(@RequestParam int[] expenseIds) {
+//    public String processRemoveExpenseForm(@RequestParam Integer[] expenseIds) {
 //
-//        //if user in session:
-//        for (int expense : expenseIds) {
-//            Expense delExpense = expenseDao.findOne(expense);
+//        for (int expenseId : expenseIds) {
+//            Expense delExpense = expenseDao.findOne(expenseId);
 //            expenseDao.delete(delExpense);
 //        }
 //
 //        return "redirect:";
-//
-//        //else:
-//        //return "login";
 //    }
 
     @RequestMapping(value = "bymonth")
     public String byMonth(Model model) {
 
-        //if user in session:
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Month");
 
         return "expense/bymonth";
-
-        //else:
-        //return "login";
     }
 
     @RequestMapping(value = "bycategory")
     public String byCategory(Model model) {
 
-        //if user in session:
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Category");
 
         return "expense/bycategory";
-
-        //else:
-        //return "login";
     }
 }

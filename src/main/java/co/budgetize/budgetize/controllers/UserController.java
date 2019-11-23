@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(Model model, @ModelAttribute User newUser, Errors errors,
+    public String register(Model model, @ModelAttribute("newUser") User newUser, Errors errors,
                            @RequestParam String verifypassword) {
 
         model.addAttribute(newUser);
@@ -58,47 +58,77 @@ public class UserController {
 
     public boolean loginCheck(@RequestParam String username, @RequestParam String password){
         String query;
-        String dbUsername, dbPassword;
         boolean login = false;
 
         try {
             Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/budgetize4", "budgetize4", "money");
             Statement stmt = (Statement) con.createStatement();
-            query = "SELECT username, password FROM user;";
+            query = "SELECT userId WHERE password=password AND email=email FROM user;";
             stmt.executeQuery(query);
-            ResultSet rs = stmt.getResultSet();
+            ResultSet result = stmt.getResultSet();
 
-            while(rs.next()){
-                dbUsername = rs.getString("username");
-                dbPassword = rs.getString("password");
-
-                if(dbUsername.equals(username) && dbPassword.equals(password)){
-                    System.out.println("OK");
-                    login = true;
-                }
-                System.out.println(username + password + " " + dbUsername + dbPassword);
+            if (result != null) {
+                login = true;
             }
         } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
         }
         return login;
+
+
+        //        String query;
+//        String dbUsername, dbPassword;
+//        boolean login = false;
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
+//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/budgetize4", "budgetize4", "money");
+//            Statement stmt = (Statement) con.createStatement();
+//            query = "SELECT username, password FROM user;";
+//            stmt.executeQuery(query);
+//            ResultSet rs = stmt.getResultSet();
+//
+//            while(rs.next()){
+//                dbUsername = rs.getString("username");
+//                dbPassword = rs.getString("password");
+//
+//                if(dbUsername.equals(username) && dbPassword.equals(password)){
+////                    System.out.println("OK");
+//                    login = true;
+//                }
+////                System.out.println(username + password + " " + dbUsername + dbPassword);
+//            }
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
+//        return login;
     }
 
 
     @RequestMapping(value = "login", method=RequestMethod.POST)
-    public String login(Model model, boolean login) {
-        if (login == true) {
+    public String login(Model model, @RequestParam String username, @RequestParam String password) {
+        if (loginCheck(username, password) == true) {
             return "expense/index";
         }
 

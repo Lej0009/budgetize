@@ -69,8 +69,7 @@ public class ExpenseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense,
-                                        Errors errors, @RequestParam int userId,
-                                        @RequestParam String email, Model model) {
+                                        @ModelAttribute int userId, Errors errors, Model model) {
 
 
         //if user in session:
@@ -78,10 +77,7 @@ public class ExpenseController {
             model.addAttribute("title", "Add Expense");
             return "expense/add";
         }
-
-        // TODO: don't think I need this
-//        Optional<User> user = userDao.findById(userId);
-//        newExpense.setUser(user);
+        newExpense.setUserId(userId);
         expenseDao.save(newExpense);
         return "redirect:";
 
@@ -101,21 +97,20 @@ public class ExpenseController {
         //return "login";
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public String processRemoveExpenseForm(@ModelAttribute Expense delExpense, @RequestParam int[] expenseIds) {
-
-        //if user in session:
-        for (int expenseId : expenseIds) {
-            Optional<Expense> expense = expenseDao.findById(expenseId);
-            delExpense.setExpenseId(expenseId);
-            expenseDao.delete(delExpense);
-        }
-
-        return "redirect:";
-
-        //else:
-        //return "login";
-    }
+//    @RequestMapping(value = "delete", method = RequestMethod.POST)
+//    public String processRemoveExpenseForm(@RequestParam int[] expenseIds) {
+//
+//        //if user in session:
+//        for (int expense : expenseIds) {
+//            Expense delExpense = expenseDao.findOne(expense);
+//            expenseDao.delete(delExpense);
+//        }
+//
+//        return "redirect:";
+//
+//        //else:
+//        //return "login";
+//    }
 
     @RequestMapping(value = "bymonth")
     public String byMonth(Model model) {

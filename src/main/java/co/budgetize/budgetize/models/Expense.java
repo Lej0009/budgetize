@@ -80,7 +80,4 @@ public class Expense {
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
-        this.expenseId = expenseId;
-    }
 }

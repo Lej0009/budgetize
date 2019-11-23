@@ -18,7 +18,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Expense> expenses = new ArrayList<>();
 
-    @javax.validation.constraints.Email(message = "Invalid email address")
+    @Email(message = "Invalid email address")
     private String email;
 
     @NotNull

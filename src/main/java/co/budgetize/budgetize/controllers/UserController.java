@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
@@ -31,7 +33,7 @@ public class UserController {
 
     // validate user input and store user to database
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(Model model, @ModelAttribute("newUser") User newUser, Errors errors,
+    public String register(Model model, @ModelAttribute @Valid User newUser, Errors errors,
                            @RequestParam String verifypassword) {
 
         model.addAttribute(newUser);
@@ -61,7 +63,7 @@ public class UserController {
 
     // Verify that the login email and password exists in the database
     // If userId is found with matching email and password, set login to True
-    public boolean loginCheck(@RequestParam String email, @RequestParam String password){
+    public boolean loginCheck(@RequestParam String username, @RequestParam String password){
         String query;
         boolean login = false;
 
@@ -69,7 +71,7 @@ public class UserController {
             Class.forName("com.mysql.jdbc.Driver").getDeclaredConstructor().newInstance();
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/budgetize4", "budgetize4", "money");
             Statement stmt = (Statement) con.createStatement();
-            query = "SELECT userId WHERE password=password AND email=email FROM user;";
+            query = "SELECT userId WHERE password=password AND username=username FROM user;";
             stmt.executeQuery(query);
             ResultSet result = stmt.getResultSet();
 
@@ -93,7 +95,7 @@ public class UserController {
     }
 
     // TODO: getting error that email parameter is not present
-    @RequestMapping(value = "login", method=RequestMethod.GET)
+    @RequestMapping(value = "login", method=RequestMethod.POST)
     public String login(Model model, @RequestParam String email, @RequestParam String password) {
         if (loginCheck(email, password) == true) {
             return "expense/index";

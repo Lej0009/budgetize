@@ -1,5 +1,6 @@
 package co.budgetize.budgetize.controllers;
 
+import co.budgetize.budgetize.comparators.DateComparator;
 import co.budgetize.budgetize.models.Expense;
 import co.budgetize.budgetize.models.User;
 import co.budgetize.budgetize.models.data.ExpenseDao;
@@ -16,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("budgetize")
@@ -49,6 +47,10 @@ public class ExpenseController {
 
         //TODO:
         //HttpSession
+
+//        Iterable<Expense> expenses = expenseDao.findAll();
+//        DateComparator comparator = new DateComparator();
+//        expenses.sort(comparator):
 
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "My Expenses");

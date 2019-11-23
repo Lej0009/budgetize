@@ -18,6 +18,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Expense> expenses = new ArrayList<>();
 
+    @NotNull
+    @Size(min = 1, message = "Username must not be blank")
+    private String username;
+
     @Email(message = "Invalid email address")
     private String email;
 
@@ -31,6 +35,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

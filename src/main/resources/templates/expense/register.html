@@ -10,7 +10,14 @@
     <div class="container"><br/>
         <h4 th:text="${title}">Default Title</h4>
         <br/>
-        <form method="post">
+        <form method="post" th:object="${newUser}">
+            <div class="form-group">
+<!--                adding th:for="username" breaks the code-->
+                <label for="username">Username</label>
+<!--                adding th:field = "*{username}" breaks the code-->
+                <input type="text" class="form-control" name="username" id="username" placeholder="Username"/>
+<!--                <span th:errors="*{username}" class="error"></span>-->
+            </div>
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>

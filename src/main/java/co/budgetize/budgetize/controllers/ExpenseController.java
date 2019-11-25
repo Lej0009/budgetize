@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping("budgetize")
+@RequestMapping("")
 public class ExpenseController {
 
     @Autowired
@@ -30,14 +30,7 @@ public class ExpenseController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "")
-    public String welcome(Model model) {
-        return "expense/welcome";
-    }
-
-    @RequestMapping(value = "welcome")
-    public String welcome2(Model model) { return "expense/welcome";}
-
+    // main expense display page
     @RequestMapping(value = "index")
     public String index(Model model, Integer USER_ID) {
 

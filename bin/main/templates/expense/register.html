@@ -11,25 +11,25 @@
         <h4 th:text="${title}">Default Title</h4>
         <br/>
         <form method="post" th:object="${newUser}">
-            <div class="form-group">
+            <div class="form-group col-md-6">
 <!--                adding th:for="username" breaks the code-->
                 <label for="username">Username</label>
 <!--                adding th:field = "*{username}" breaks the code-->
                 <input type="text" class="form-control" name="username" id="username" placeholder="Username"/>
 <!--                <span th:errors="*{username}" class="error"></span>-->
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email"/>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 <!--                <span th:errors="*{email}" class="error"></span>-->
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
 <!--                <span th:errors="*{password}" class="error"></span>-->
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="verifypassword">Verify Password</label>
                 <input type="password" class="form-control" name="verifypassword" id="verifypassword" placeholder="Re-Type Password"/>
 <!--                <span th:errors="*{verifypassword}" class="error"></span>-->

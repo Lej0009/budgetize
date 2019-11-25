@@ -1,0 +1,27 @@
+html,
+body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+}
+
+.bg {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#jumbotron {
+    background-image: url(pig3.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#logo {
+    font-family: 'Lobster', sans-serif;
+}
+
+#home-title {
+    font-family: 'Lobster', sans-serif;
+}

@@ -1,22 +1,24 @@
 package co.budgetize.budgetize.models;
 
-import org.hibernate.validator.constraints.Email;
-
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer userId;
+    private Long userId;
 
+    // TODO: is this mappedBy expenses or users?
     @OneToMany(mappedBy = "user")
-    private List<Expense> expenses = new ArrayList<>();
+    private Map<Long, Expense> expenses = new HashMap<>();
 
     @NotNull
     @Size(min = 1, message = "Username must not be blank")
@@ -29,12 +31,20 @@ public class User {
     @Size(min = 5, message = "Password must be at least 5 characters long")
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
+    private boolean enabled;
+    private String encryptedPassword;
+
+    // <-- constructors -->
+    public User() {
     }
 
-    public User() {
+    public User(String username, String email, String password, String encryptedPassword,
+                boolean enabled) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.encryptedPassword = encryptedPassword;
+        this.enabled = enabled;
     }
 
     public String getUsername() {
@@ -61,5 +71,21 @@ public class User {
         this.password = password;
     }
 
-    public Integer getUserId()  { return userId; }
+    public Long getUserId()  { return userId; }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
 }

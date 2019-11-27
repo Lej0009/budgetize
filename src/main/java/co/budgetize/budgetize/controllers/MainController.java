@@ -10,7 +10,7 @@ public class MainController {
 
     @RequestMapping(value = "")
     public String welcome(Model model) {
-        return "main/welcome";
+        return "welcome";
     }
 
 }

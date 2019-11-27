@@ -16,7 +16,7 @@ public class LoginController {
     @GetMapping
     public String login(Model model) {
         model.addAttribute("title", "Login");
-        return "main/login";
+        return "login";
     }
 
     // Verify that the login email and password exists in the database
@@ -57,10 +57,10 @@ public class LoginController {
     @PostMapping
     public String login(Model model, @RequestParam String email, @RequestParam String password) {
         if (loginCheck(email, password) == true) {
-            return "expense/index";
+            return "index";
         }
         model.addAttribute("title", "Login");
-        return "main/login";
+        return "login";
     }
 }
 

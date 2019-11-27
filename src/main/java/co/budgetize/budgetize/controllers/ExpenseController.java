@@ -1,10 +1,8 @@
 package co.budgetize.budgetize.controllers;
 
-import co.budgetize.budgetize.comparators.DateComparator;
+import co.budgetize.budgetize.dao.ExpenseDao;
+import co.budgetize.budgetize.dao.UserDao;
 import co.budgetize.budgetize.models.Expense;
-import co.budgetize.budgetize.models.User;
-import co.budgetize.budgetize.models.data.ExpenseDao;
-import co.budgetize.budgetize.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,18 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping("")
 public class ExpenseController {
 
     @Autowired
     private ExpenseDao expenseDao;
 
-    // TODO: don't think I need this?
     @Autowired
     private UserDao userDao;
 
@@ -48,7 +42,7 @@ public class ExpenseController {
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "My Expenses");
 
-        return "expense/index";
+        return "index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -57,7 +51,7 @@ public class ExpenseController {
         model.addAttribute("title", "Add Expense");
         model.addAttribute(new Expense());
 
-        return "expense/add";
+        return "add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -73,10 +67,10 @@ public class ExpenseController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Expense");
-            return "expense/add";
+            return "add";
         } else {
             expenseDao.save(newExpense);
-            return "expense/index";
+            return "index";
         }
     }
 
@@ -85,7 +79,7 @@ public class ExpenseController {
 
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Remove Expense");
-        return "expense/delete";
+        return "delete";
     }
 
 //    @RequestMapping(value = "delete", method = RequestMethod.POST)
@@ -105,7 +99,7 @@ public class ExpenseController {
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Month");
 
-        return "expense/bymonth";
+        return "bymonth";
     }
 
     @RequestMapping(value = "bycategory")
@@ -114,6 +108,6 @@ public class ExpenseController {
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Category");
 
-        return "expense/bycategory";
+        return "bycategory";
     }
 }

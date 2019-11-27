@@ -10,29 +10,30 @@
     <div class="container"><br/>
         <h4 th:text="${title}">Default Title</h4>
         <br/>
-        <form method="post" th:object="${newUser}">
+        <form method="post" th:action="@{/register}" th:object="${registerUserForm}">
             <div class="form-group col-md-6">
 <!--                adding th:for="username" breaks the code-->
+<!--                don't need id="username" if using th:for-->
                 <label th:for="username">Username</label>
 <!--                adding th:field = "*{username}" breaks the code-->
-                <input type="text" class="form-control" th:field="${username}" name="username" id="username" placeholder="Username"/>
-                <span th:errors="${username}" class="error"></span>
+                <input type="text" class="form-control" th:field="*{username}" name="username" placeholder="Username"/>
+                <span th:errors="*{username}" class="error"></span>
             </div>
             <div class="form-group col-md-6">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email"/>
+                <label th:for="email">Email address</label>
+                <input type="email" class="form-control" th:field="*{email}" name="email" id="email" aria-describedby="emailHelp" placeholder="Email"/>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-<!--                <span th:errors="*{email}" class="error"></span>-->
+                <span th:errors="*{email}" class="error"></span>
             </div>
             <div class="form-group col-md-6">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
-<!--                <span th:errors="*{password}" class="error"></span>-->
+                <label th:for="password">Password</label>
+                <input type="password" class="form-control" th:field="*{password}" name="password" id="password" placeholder="Password"/>
+                <span th:errors="*{password}" class="error"></span>
             </div>
             <div class="form-group col-md-6">
                 <label for="verifypassword">Verify Password</label>
                 <input type="password" class="form-control" name="verifypassword" id="verifypassword" placeholder="Re-Type Password"/>
-<!--                <span th:errors="*{verifypassword}" class="error"></span>-->
+                <span class="error" th:text="${verifyError}"></span>
             </div>
             <button type="submit" class="btn btn-info">Register</button>
         </form>

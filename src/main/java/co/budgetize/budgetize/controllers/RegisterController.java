@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,20 +31,35 @@ public class RegisterController implements WebMvcConfigurer {
     }
 
     @PostMapping("/register")
-    public String processRegisterForm(Model model, @Valid RegisterUserForm registerUserForm,
-                                      BindingResult bindingResult, @ModelAttribute User newUser,
-                                      Error errors) {
+    public String processRegisterForm(@Valid RegisterUserForm registerUserForm,
+                                      BindingResult bindingResult, Model model,
+                                      @ModelAttribute @Valid User newUser, Errors errors,
+                                      String verifypassword) {
 
         // if email exists in db, set registerValid to false
 //        if (userDao.findOne(newUser.getEmail()) == null) {
 //            registerValid = false;
 //        }
 
-        // if form validation errors, set registerValid to false
-        if (!bindingResult.hasErrors()) {
-            userDao.save(newUser);
-            return "redirect:index";
+        model.addAttribute(newUser);
+
+        boolean passwordsMatch = true;
+        if (newUser.getPassword() == null || verifypassword == null
+                || !newUser.getPassword().equals(verifypassword)) {
+            passwordsMatch = false;
+            newUser.setPassword("");
+            model.addAttribute("verifyError", "Passwords must match");
         }
+
+        if (!errors.hasErrors() && passwordsMatch) {
+            userDao.save(newUser);
+            return "redirect:/index";
+        }
+        // if form validation errors, set registerValid to false
+//        if (!bindingResult.hasErrors()) {
+//            userDao.save(newUser);
+//            return "redirect:/index";
+//        }
 
         return "register";
     }

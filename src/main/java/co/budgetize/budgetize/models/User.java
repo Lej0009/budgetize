@@ -31,6 +31,8 @@ public class User {
     @Size(min = 5, message = "Password must be at least 5 characters long")
     private String password;
 
+    // TODO: not sure what/why I have private boolean enabled...saw it
+    // TODO: in a Spring Security tutorial, but not sure I need it
     private boolean enabled;
     private String encryptedPassword;
 

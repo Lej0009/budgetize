@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -31,6 +28,20 @@ public class VerificationController {
         modelAndView.setViewName("login"); // resources/template/login.html
         return modelAndView;
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String processLogin(@ModelAttribute @Valid User user, Errors errors, Model model, String password) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        if (userService.isUserLoginValid(user, password) == true) {
+            return "redirect:/index";
+        }
+        model.addAttribute("title", "Login");
+        modelAndView.setViewName("login");
+        return "login";
+    }
+
+
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public ModelAndView register() {

@@ -30,9 +30,11 @@ public class User {
     @Column(name = "status")
     private String status;
 
-    @OneToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
-    private Set<Role> roles;
+//    @OneToMany
+//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_name"))
+//    private Set<Role> roles;
+
+    private String role;
 
 //    @JoinColumn(name = "expense_id")
     @OneToMany
@@ -85,11 +87,19 @@ public class User {
         this.status = status;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+//    public Set<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

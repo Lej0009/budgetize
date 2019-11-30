@@ -25,13 +25,6 @@ public class RegisterController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login"); // resources/template/login.html
-        return modelAndView;
-    }
-
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
@@ -75,30 +68,6 @@ public class RegisterController {
         model.addAttribute("title", "Register");
         return "register";
     }
-
-
-
-
-//    @RequestMapping(value="register", method=RequestMethod.POST)
-//    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        // Check for the validations
-//        if(bindingResult.hasErrors()) {
-//            modelAndView.addObject("successMessage", "Correct the given errors and submit again!");
-//            modelMap.addAttribute("bindingResult", bindingResult);
-//        }
-//        else if(userService.isUserAlreadyPresent(user)){
-//            modelAndView.addObject("successMessage", "user already exists!");
-//        }
-//        // we will save the user if, no binding errors
-//        else {
-//            userService.saveUser(user);
-//            modelAndView.addObject("successMessage", "User registration successful");
-//        }
-//        modelAndView.addObject("user", new User());
-//        modelAndView.setViewName("register");
-//        return modelAndView;
-//    }
 
 }
 

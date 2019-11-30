@@ -3,6 +3,7 @@ package co.budgetize.budgetize.controllers;
 import co.budgetize.budgetize.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,12 +14,13 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public ModelAndView login() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login"); // resources/template/login.html
-        return modelAndView;
+
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public ModelAndView processLogin() {
+
     }
+
 
 }
 

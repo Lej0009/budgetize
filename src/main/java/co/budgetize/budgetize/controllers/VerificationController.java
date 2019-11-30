@@ -20,10 +20,17 @@ import java.security.Principal;
 
 
 @Controller
-public class RegisterController {
+public class VerificationController {
 
     @Autowired
     UserService userService;
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login"); // resources/template/login.html
+        return modelAndView;
+    }
 
     @RequestMapping(value = "register", method = RequestMethod.GET)
     public ModelAndView register() {

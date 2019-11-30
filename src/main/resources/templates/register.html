@@ -10,12 +10,9 @@
     <div class="container"><br/>
         <h4 th:text="${title}">Default Title</h4>
         <br/>
-        <form method="post" th:action="@{/register}" th:object="${registerUserForm}">
+        <form method="post" th:action="@{/register}" th:object="${user}">
             <div class="form-group col-md-6">
-<!--                adding th:for="username" breaks the code-->
-<!--                don't need id="username" if using th:for-->
                 <label th:for="username">Username</label>
-<!--                adding th:field = "*{username}" breaks the code-->
                 <input type="text" class="form-control" th:field="*{username}" name="username" placeholder="Username"/>
                 <span th:errors="*{username}" class="error"></span>
             </div>

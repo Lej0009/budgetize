@@ -6,6 +6,5 @@ public interface UserService {
 
     public void saveUser(User user);
     public boolean isUserAlreadyPresent(User user);
-    public boolean isUserLoginValid(User user, String password);
-
+    public void changeUserPassword(User user, String password);
 }

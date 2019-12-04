@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.*;
 
 @Controller
+@RequestMapping("/")
 public class ExpenseController implements WebMvcConfigurer {
 
     @Autowired
@@ -27,14 +28,20 @@ public class ExpenseController implements WebMvcConfigurer {
     @Autowired
     private UserDao userDao;
 
-    @GetMapping("/add")
-    public String displayAddExpenseForm(Model model, Principal principal) {
-        model.addAttribute("expenses", expenseDao.findByUser(principal));
-        model.addAttribute("title", "Add Expense");
-        return "register";
+    @GetMapping("/home")
+    public String displayExpenses(Model model, User user) {
+        model.addAttribute("expenses", expenseDao.findById(user.getUserId()));
+        model.addAttribute("title", "All Expenses");
+        return "index";
     }
 
-    @PostMapping("/add")
+    @GetMapping("/home/add")
+    public String displayAddExpenseForm(Model model, User user) {
+        model.addAttribute("title", "Add Expense");
+        return "add";
+    }
+
+    @PostMapping("/home/add")
     public String processAddExpenseForm(@Valid AddExpenseForm addExpenseForm,
                                         BindingResult bindingResult, Model model,
                                         @ModelAttribute @Valid Expense newExpense, Errors errors) {
@@ -49,7 +56,7 @@ public class ExpenseController implements WebMvcConfigurer {
         return "add";
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    @GetMapping("/home/delete")
     public String displayRemoveExpenseForm(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
@@ -69,7 +76,7 @@ public class ExpenseController implements WebMvcConfigurer {
 //        return "redirect:";
 //    }
 
-    @RequestMapping(value = "bymonth")
+    @GetMapping("/home/bymonth")
     public String displayExpensesByMonth(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
@@ -78,7 +85,7 @@ public class ExpenseController implements WebMvcConfigurer {
         return "bymonth";
     }
 
-    @RequestMapping(value = "bycategory")
+    @GetMapping("/home/bycategory")
     public String displayExpensesByCategory(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());

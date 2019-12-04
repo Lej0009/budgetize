@@ -1,36 +1,32 @@
 package co.budgetize.budgetize.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Role {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "role_id")
-//    private int id;
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private int roleId;
+
     @Column(name = "role_name")
     private String role;
 
     @Column(name = "role_desc")
     private String desc;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User app_user;
-
     public Role() {
     }
 
-    //    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
     public String getRole() {
         return role;

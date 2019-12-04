@@ -21,6 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
+    private CustomLoginSuccessfulHandler successHandler;
+
+    @Autowired
     private DataSource dataSource;
 
     @Value("${spring.queries.users-query}")
@@ -43,15 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/home/**").hasAnyAuthority("ADMIN_USER", "APP_USER")
+                .antMatchers("/updatepassword").permitAll()
+                .antMatchers("/home**").hasAnyAuthority("ADMIN_USER", "APP_USER", "1")
                 .anyRequest().authenticated()
                 .and()
                 // form login
                 .csrf().disable().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/index")
-                .usernameParameter("username")
+                .defaultSuccessUrl("/home", true)
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .and()
                 // logout
@@ -67,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+        web.ignoring().antMatchers("/resources/**", "/static/**", "/css/**", "/js/**");
     }
 
 

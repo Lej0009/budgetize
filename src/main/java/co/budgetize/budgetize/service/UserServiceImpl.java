@@ -28,9 +28,8 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus("VERIFIED");
-//        Role userRole = roleDao.findByRole("APP_USER");
-//        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        user.setRole("APP_USER");
+        Role userRole = roleDao.findByRole("APP_USER");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userDao.save(user);
     }
 
@@ -46,13 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserLoginValid(User user, String password) {
-        boolean isUserLoginValid = false;
-        if (isUserAlreadyPresent(user) == true) {
-            if (user.getPassword() == password) {
-                isUserLoginValid = true;
-            }
-        }
-        return false;
+    public void changeUserPassword(User user, @RequestParam String password) {
+        user.setPassword(encoder.encode(password));
+        userDao.save(user);
     }
 }

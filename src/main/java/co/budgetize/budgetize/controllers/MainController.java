@@ -11,9 +11,6 @@ public class MainController implements WebMvcConfigurer {
 
     @RequestMapping(value = "")
     public String welcome(Model model) {
-
-        model.addAttribute("title", "All Expenses");
         return "welcome";
     }
-
 }

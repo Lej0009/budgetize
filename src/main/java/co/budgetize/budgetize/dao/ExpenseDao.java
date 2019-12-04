@@ -12,7 +12,5 @@ import java.security.Principal;
 @Repository
 @Transactional
 public interface ExpenseDao extends CrudRepository<Expense, Integer> {
-//    Object findByUsername(String name);
-    public Expense findByUser(Principal principal);
 
 }

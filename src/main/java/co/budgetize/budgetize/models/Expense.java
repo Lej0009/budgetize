@@ -9,22 +9,27 @@ public class Expense {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "expense_id")
     private int expenseId;
 
     @NotBlank(message = "Date must not be empty")
+    @Column(name = "date")
     private Date date;
 
     @NotBlank(message = "Category must not be empty")
+    @Column(name = "category")
     private String category;
 
     @NotBlank(message = "Description must not be empty")
+    @Column(name = "description")
     private String description;
 
     @NotBlank
+    @Column(name = "amount")
     private Float amount;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Expense() { }
@@ -71,5 +76,13 @@ public class Expense {
 
     public void setAmount(Float amount) {
         this.amount = amount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

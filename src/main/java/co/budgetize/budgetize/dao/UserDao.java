@@ -7,5 +7,9 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<User, Integer> {
+
+    User findByEmail(String email);
+
+    User findByUserId(int userId);
 }

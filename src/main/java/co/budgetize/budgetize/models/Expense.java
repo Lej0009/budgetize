@@ -1,39 +1,38 @@
 package co.budgetize.budgetize.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
 public class Expense {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer expenseId;
+    @Column(name = "expense_id")
+    private int expenseId;
 
-//    @NotNull
-//    @Size(min=10, message = "Date must not be empty")
+    @NotBlank(message = "Date must not be empty")
+    @Column(name = "date")
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-    private User user;
-
-    @NotNull
+    @NotBlank(message = "Category must not be empty")
+    @Column(name = "category")
     private String category;
 
-    @NotNull
-    @Size(min=1, message = "Description must not be empty")
+    @NotBlank(message = "Description must not be empty")
+    @Column(name = "description")
     private String description;
 
-    @NotNull
+    @NotBlank
+    @Column(name = "amount")
     private Float amount;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Expense() { }
 
     public Expense(Date date, String category,
                    String description, Float amount) {
@@ -43,7 +42,9 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Expense() { }
+    public int getExpenseId() {
+        return expenseId;
+    }
 
     public Date getDate() {
         return date;
@@ -77,8 +78,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public int getExpenseId() {
-        return expenseId;
+    public User getUser() {
+        return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

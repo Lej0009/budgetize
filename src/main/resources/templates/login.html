@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
 
 <head th:replace="fragments :: head"></head>
 
@@ -8,19 +8,31 @@
     <nav th:replace="fragments :: navigation"></nav>
 
     <div class="container"><br/>
-        <h4 th:text="${title}">Default Title</h4>
+        <h4 th:text="${title}">Default Title</h4><br/>
 
+        <!-- /login?error=true -->
+        <div th:if="${#request.getParameter('error') == 'true'}"
+             style="color:red;margin:10px 0px;">
+            Login Failed!<br/>
+            Reason :
+            <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+                  th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+                Static summary
+            </span>
 
-        <form method="post">
+        </div>
+
+        <form method="post" th:action="@{/login}">
             <div class="form-group col-md-6">
-                <label form="text">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username"/>
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Email"/>
             </div>
             <div class="form-group col-md-6">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password"/>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
             </div>
             <button type="submit" class="btn btn-info">Log In</button>
+            <a href="updatepassword">Forgot password?</a>
         </form>
 
 
@@ -28,6 +40,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    </div>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
 
 <head th:replace="fragments :: head"></head>
 <body>
@@ -8,8 +8,6 @@
     <div class="container">
         <br/>
         <h4 th:text="${title}">Default Title</h4><br/>
-        <p th:unless="${expenses} and ${expenses.size()}">No Expenses</p>
-
         <nav th:replace="fragments :: expensenavigation"></nav>
 
         <table class="table">

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
+@RequestMapping("/")
 public class ExpenseController implements WebMvcConfigurer {
 
     @Autowired
@@ -26,41 +28,20 @@ public class ExpenseController implements WebMvcConfigurer {
     @Autowired
     private UserDao userDao;
 
-    // main expense display page !!! using @GetMapping below instead
-//    @RequestMapping(value = "index")
-//    public String index(Model model, Long USER_ID) {
-
-        //TODO: figure out how to get all expenses for the current user
-        //TODO: filtered by current active session logged in user
-//        model.addAttribute("expenses", expenseDao.findAll(USER_ID));
-
-//        Iterable<Expense> expenses = expenseDao.findAll();
-//        DateComparator comparator = new DateComparator();
-//        expenses.sort(comparator):
-
-//        model.addAttribute("expenses", expenseDao.findById(USER_ID));
-//        model.addAttribute("title", "My Expenses");
-//
-//        return "index";
-//    }
-
-//    @RequestMapping(value = "add", method = RequestMethod.GET)
-//    public String displayAddExpenseForm(Model model) {
-//
-//        model.addAttribute("title", "Add Expense");
-//        model.addAttribute(new Expense());
-//          don't think I need ^^^ line
-//        return "add";
-//    }
-
-    @GetMapping("/add")
-    public String showForm(AddExpenseForm addExpenseForm, Model model, Long USER_ID) {
-        model.addAttribute("expenses", expenseDao.findById(USER_ID));
-        model.addAttribute("title", "Add Expense");
-        return "register";
+    @GetMapping("/home")
+    public String displayExpenses(Model model, User user) {
+        model.addAttribute("expenses", expenseDao.findById(user.getUserId()));
+        model.addAttribute("title", "All Expenses");
+        return "index";
     }
 
-    @PostMapping("/add")
+    @GetMapping("/home/add")
+    public String displayAddExpenseForm(Model model, User user) {
+        model.addAttribute("title", "Add Expense");
+        return "add";
+    }
+
+    @PostMapping("/home/add")
     public String processAddExpenseForm(@Valid AddExpenseForm addExpenseForm,
                                         BindingResult bindingResult, Model model,
                                         @ModelAttribute @Valid Expense newExpense, Errors errors) {
@@ -71,30 +52,11 @@ public class ExpenseController implements WebMvcConfigurer {
             expenseDao.save(newExpense);
             return "redirect:/index";
         }
+        model.addAttribute("title", "Add Expense");
         return "add";
     }
 
-//    @RequestMapping(value = "add", method = RequestMethod.POST)
-//    public String processAddExpenseForm(@ModelAttribute @Valid Expense newExpense, Errors errors,
-//                                        @RequestParam Date datepicker, Model model) {
-//        model.addAttribute(newExpense);
-
-        // TODO: getting error "Cannot format given Object as a Date" when this
-        // TODO: part of code is included. With date set as a String or a Date
-//        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-//        String dt2 = dt1.format(datepicker);
-//        newExpense.setDate(datepicker);
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Add Expense");
-//            return "add";
-//        } else {
-//            expenseDao.save(newExpense);
-//            return "index";
-//        }
-//    }
-
-    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    @GetMapping("/home/delete")
     public String displayRemoveExpenseForm(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
@@ -102,19 +64,20 @@ public class ExpenseController implements WebMvcConfigurer {
         return "delete";
     }
 
+    // TODO: throwing error
 //    @RequestMapping(value = "delete", method = RequestMethod.POST)
-//    public String processRemoveExpenseForm(@RequestParam Integer[] expenseIds) {
+//    public String processRemoveExpenseForm(@RequestParam Long[] expenseIds) {
 //
-//        for (int expenseId : expenseIds) {
-//            Expense delExpense = expenseDao.findOne(expenseId);
+//        for (Long expenseId : expenseIds) {
+//            Expense delExpense = expenseDao.findById(expenseId);
 //            expenseDao.delete(delExpense);
 //        }
 //
 //        return "redirect:";
 //    }
 
-    @RequestMapping(value = "bymonth")
-    public String byMonth(Model model) {
+    @GetMapping("/home/bymonth")
+    public String displayExpensesByMonth(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Month");
@@ -122,8 +85,8 @@ public class ExpenseController implements WebMvcConfigurer {
         return "bymonth";
     }
 
-    @RequestMapping(value = "bycategory")
-    public String byCategory(Model model) {
+    @GetMapping("/home/bycategory")
+    public String displayExpensesByCategory(Model model) {
 
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "Expenses by Category");

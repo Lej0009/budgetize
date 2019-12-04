@@ -1,26 +1,25 @@
 package co.budgetize.budgetize.formbean;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegisterUserForm {
 
-    @NotNull
+    @NotBlank
     @Size(min=2, max=30)
     private String username;
 
-    private boolean enabled;
-
-    @NotNull
+    @NotBlank
     @Email(message = "Invalid email address")
     private String email;
 
-    @NotNull
+    @NotBlank
     @Size(min=2, max=30)
     private String password;
 
-    @NotNull
+    @NotBlank
     @Size(min=2, max=30)
     private String confirmPassword;
 
@@ -33,14 +32,6 @@ public class RegisterUserForm {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getEmail() {

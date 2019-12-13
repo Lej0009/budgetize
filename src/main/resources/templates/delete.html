@@ -13,9 +13,16 @@
 
         <form method="post">
 
+
             <div th:each="expense : ${expenses}" class="checkbox">
                 <input type="checkbox" name="expenseIds" th:value="${expense.expenseId}" th:id="${expense.expenseId}"/>
+                <label th:for="${expense.expenseId}" th:text="${expense.month}"></label> -
+                <label th:for="${expense.expenseId}" th:text="${expense.day}"></label> -
+                <label th:for="${expense.expenseId}" th:text="${expense.year}"></label>
+                <label th:for="${expense.expenseId}" th:text="${expense.category}"></label>
                 <label th:for="${expense.expenseId}" th:text="${expense.description}"></label>
+                <label th:for="${expense.expenseId}" th:text="${expense.amount}"></label>
+
             </div><br/>
             <button type="submit" class="btn btn-info">Remove Expense</button>
         </form>

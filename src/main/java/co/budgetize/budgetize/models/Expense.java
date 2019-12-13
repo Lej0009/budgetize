@@ -1,10 +1,11 @@
 package co.budgetize.budgetize.models;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+import java.security.Principal;
 import java.util.Date;
 
 @Entity
@@ -15,9 +16,27 @@ public class Expense {
     @Column(name = "expense_id")
     private int expenseId;
 
+//    @NotNull
+//    @Column(name = "date")
+//    private Date date;
+
     @NotNull
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "month")
+    @Min(1)
+    @Max(12)
+    private int month;
+
+    @NotNull
+    @Column(name = "day")
+    @Min(1)
+    @Max(31)
+    private int day;
+
+    @NotNull
+    @Column(name = "year")
+    @Min(2018)
+    @Max(2020)
+    private int year;
 
     @NotBlank(message = "Category must not be empty")
     @Column(name = "category")
@@ -31,15 +50,18 @@ public class Expense {
     @Column(name = "amount")
     private Float amount;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+    @Column(name = "user_id")
+    private int user;
 
     public Expense() { }
 
     public Expense(Date date, String category,
                    String description, Float amount) {
-        this.date = date;
+//        this.date = date;
+        this.month = month;
+        this.day = day;
+        this.year = year;
         this.category = category;
         this.description = description;
         this.amount = amount;
@@ -49,13 +71,37 @@ public class Expense {
         return expenseId;
     }
 
-    public Date getDate() {
-        return date;
+    public int getMonth() {
+        return month;
     }
 
-    public void setDate(Date date){
-        this.date = date;
+    public void setMonth(int month) {
+        this.month = month;
     }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    //    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date){
+//        this.date = date;
+//    }
 
     public String getCategory() {
         return category;
@@ -81,11 +127,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public User getUser() {
+    public int getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(int user) {
         this.user = user;
     }
 }

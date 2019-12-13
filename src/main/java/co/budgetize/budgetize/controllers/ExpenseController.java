@@ -2,14 +2,11 @@ package co.budgetize.budgetize.controllers;
 
 import co.budgetize.budgetize.dao.ExpenseDao;
 import co.budgetize.budgetize.dao.UserDao;
-import co.budgetize.budgetize.formbean.AddExpenseForm;
-import co.budgetize.budgetize.formbean.RegisterUserForm;
 import co.budgetize.budgetize.models.Expense;
 import co.budgetize.budgetize.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,7 +27,7 @@ public class ExpenseController implements WebMvcConfigurer {
 
     @GetMapping("/home")
     public String displayExpenses(Model model, User user) {
-        model.addAttribute("expenses", expenseDao.findById(user.getUserId()));
+        model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "All Expenses");
         return "index";
     }
@@ -42,15 +39,15 @@ public class ExpenseController implements WebMvcConfigurer {
     }
 
     @PostMapping("/home/add")
-    public String processAddExpenseForm(@Valid AddExpenseForm addExpenseForm,
-                                        BindingResult bindingResult, Model model,
-                                        @ModelAttribute @Valid Expense newExpense, Errors errors) {
+    public String processAddExpenseForm(User user, Model model, @ModelAttribute @Valid Expense newExpense,
+                                        Errors errors, Principal principal) {
 
 //        model.addAttribute(newExpense);
 
         if(!errors.hasErrors()) {
+            newExpense.setUser(user.getUserId());
             expenseDao.save(newExpense);
-            return "redirect:/index";
+            return "redirect:/home";
         }
         model.addAttribute("title", "Add Expense");
         return "add";

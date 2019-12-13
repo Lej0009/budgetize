@@ -35,8 +35,8 @@ public class User {
 //    @JoinTable(name = "user_expense", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "expense_id"))
 //    private Set<Expense> expenses;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Expense> expenses;
+//    @OneToMany(mappedBy = "user")
+//    private Set<Expense> expenses;
 
     public User() {
     }
@@ -80,11 +80,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(Set<Expense> expenses) {
-        this.expenses = expenses;
-    }
+//    public Set<Expense> getExpenses() {
+//        return expenses;
+//    }
+//
+//    public void setExpenses(Set<Expense> expenses) {
+//        this.expenses = expenses;
+//    }
 }

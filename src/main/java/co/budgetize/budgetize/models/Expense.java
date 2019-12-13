@@ -2,6 +2,7 @@ package co.budgetize.budgetize.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ public class Expense {
     @Column(name = "expense_id")
     private int expenseId;
 
-    @NotBlank(message = "Date must not be empty")
+    @NotNull
     @Column(name = "date")
     private Date date;
 
@@ -24,7 +25,7 @@ public class Expense {
     @Column(name = "description")
     private String description;
 
-    @NotBlank
+    @NotNull
     @Column(name = "amount")
     private Float amount;
 

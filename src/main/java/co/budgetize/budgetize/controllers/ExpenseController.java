@@ -46,7 +46,7 @@ public class ExpenseController implements WebMvcConfigurer {
                                         BindingResult bindingResult, Model model,
                                         @ModelAttribute @Valid Expense newExpense, Errors errors) {
 
-        model.addAttribute(newExpense);
+//        model.addAttribute(newExpense);
 
         if(!errors.hasErrors()) {
             expenseDao.save(newExpense);

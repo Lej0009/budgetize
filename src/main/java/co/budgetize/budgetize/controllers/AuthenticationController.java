@@ -4,6 +4,9 @@ import co.budgetize.budgetize.formbean.RegisterUserForm;
 import co.budgetize.budgetize.models.User;
 import co.budgetize.budgetize.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +14,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -60,9 +65,10 @@ public class AuthenticationController {
 
         if (!errors.hasErrors() && passwordsMatch) {
             userService.saveUser(newUser);
-            return "redirect:/index";
+            return "login";
         }
         model.addAttribute("title", "Register");
         return "register";
     }
+
 }

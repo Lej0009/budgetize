@@ -1,5 +1,7 @@
 package co.budgetize.budgetize.models;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -51,8 +53,8 @@ public class Expense {
         return date;
     }
 
-    public void setDate(Date datepicker){
-        this.date = datepicker;
+    public void setDate(Date date){
+        this.date = date;
     }
 
     public String getCategory() {

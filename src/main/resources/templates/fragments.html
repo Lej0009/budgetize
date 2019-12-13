@@ -52,10 +52,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../register">Register</a>
                 </li>
-                <li class="nav-item navbar-right">
-                    <a class="nav-link" th:if="${#request.userPrincipal != null}" th:action="@{/logout}">Sign Out</a>
-                </li>
             </ul>
+            <a href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a>
+
+            <form class="form-inline my-2 my-lg-0" name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Sign Out"/>
+            </form>
+<!--                    <a class="nav-link" th:if="${#request.userPrincipal != null}" th:action="@{/logout}" method="post">Sign Out</a>-->
 
         </div>
     </nav>

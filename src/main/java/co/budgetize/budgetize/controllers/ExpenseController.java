@@ -40,7 +40,7 @@ public class ExpenseController implements WebMvcConfigurer {
 
     @PostMapping("/home/add")
     public String processAddExpenseForm(User user, Model model, @ModelAttribute @Valid Expense newExpense,
-                                        Errors errors, Principal principal) {
+                                        Errors errors) {
 
 //        model.addAttribute(newExpense);
 

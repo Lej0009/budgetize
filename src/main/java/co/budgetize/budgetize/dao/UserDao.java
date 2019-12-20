@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 public interface UserDao extends CrudRepository<User, Integer> {
 
     User findByEmail(String email);
+    
+    User findByUserId(Integer userId);
 
-    User findByUserId(int userId);
+    User findByPassword(String password);
 }

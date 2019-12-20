@@ -52,7 +52,7 @@ public class Expense {
 
 //    @ManyToOne
     @Column(name = "user_id")
-    private int user;
+    private Integer userId;
 
     public Expense() { }
 
@@ -67,9 +67,10 @@ public class Expense {
         this.amount = amount;
     }
 
-    public int getExpenseId() {
+    public Integer getExpenseId() {
         return expenseId;
     }
+
 
     public int getMonth() {
         return month;
@@ -95,14 +96,6 @@ public class Expense {
         this.year = year;
     }
 
-    //    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date){
-//        this.date = date;
-//    }
-
     public String getCategory() {
         return category;
     }
@@ -127,11 +120,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public int getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(int user) {
-        this.user = user;
+    public void setUserId(int user) {
+        this.userId = userId;
     }
 }

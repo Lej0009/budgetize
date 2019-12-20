@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public boolean isUserAlreadyPresent(User user) {
         boolean isUserAlreadyExists = false;
         User existingUser = userDao.findByEmail(user.getEmail());
-        // If user is found in database, then then user already exists.
+        // If user is found in database, then the user already exists.
         if(existingUser != null){
             isUserAlreadyExists = true;
         }
@@ -49,4 +49,5 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoder.encode(password));
         userDao.save(user);
     }
+
 }

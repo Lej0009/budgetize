@@ -4,7 +4,11 @@ import co.budgetize.budgetize.dao.ExpenseDao;
 import co.budgetize.budgetize.dao.UserDao;
 import co.budgetize.budgetize.models.Expense;
 import co.budgetize.budgetize.models.User;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,6 +33,7 @@ public class ExpenseController implements WebMvcConfigurer {
     public String displayExpenses(Model model, User user) {
         model.addAttribute("expenses", expenseDao.findAll());
         model.addAttribute("title", "All Expenses");
+
         return "index";
     }
 
@@ -40,12 +45,23 @@ public class ExpenseController implements WebMvcConfigurer {
 
     @PostMapping("/home/add")
     public String processAddExpenseForm(User user, Model model, @ModelAttribute @Valid Expense newExpense,
-                                        Errors errors) {
+                                        Errors errors,  Principal principal) {
 
-//        model.addAttribute(newExpense);
+        model.addAttribute(newExpense);
 
         if(!errors.hasErrors()) {
-            newExpense.setUser(user.getUserId());
+
+//            Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+//            String name=auth.getName();
+//            UserDetails userDetail= (UserDetails)auth.getPrincipal();
+//
+//            User currentUser= userDao.findByPassword(userDetail.getPassword());
+//            Integer id= currentUser.getUserId();
+
+            User currentUser = userDao.findByEmail(principal.getName());
+            Integer id = currentUser.getUserId();
+
+            newExpense.setUserId(id);
             expenseDao.save(newExpense);
             return "redirect:/home";
         }

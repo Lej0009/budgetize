@@ -63,15 +63,15 @@ public class ExpenseController implements WebMvcConfigurer {
 
     // TODO: throwing error
 //    @RequestMapping(value = "delete", method = RequestMethod.POST)
-//    public String processRemoveExpenseForm(@RequestParam Long[] expenseIds) {
-//
-//        for (Long expenseId : expenseIds) {
-//            Expense delExpense = expenseDao.findById(expenseId);
-//            expenseDao.delete(delExpense);
-//        }
-//
-//        return "redirect:";
-//    }
+    @PostMapping("/home/delete")
+    public String processRemoveExpenseForm(@RequestParam Integer[] expenseIds) {
+
+        for (Integer expenseId : expenseIds) {
+            expenseDao.deleteById(expenseId);
+        }
+
+        return "redirect:/home";
+    }
 
     @GetMapping("/home/bymonth")
     public String displayExpensesByMonth(Model model) {

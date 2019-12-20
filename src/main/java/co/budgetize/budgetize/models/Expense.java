@@ -14,7 +14,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "expense_id")
-    private int expenseId;
+    private Integer expenseId;
 
 //    @NotNull
 //    @Column(name = "date")

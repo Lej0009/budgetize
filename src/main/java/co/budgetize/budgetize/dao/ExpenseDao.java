@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.util.Optional;
 
 @Repository
 @Transactional

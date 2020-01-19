@@ -4,15 +4,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @Configuration
-public class DBConfig {
+public class DBConfig implements WebMvcConfigurer {
 
     @Value("$jdbc:mysql://localhost:8889/budgetize")
-    private String dbUrl;
+    public String dbUrl;
 
     @Bean
     public DataSource dataSource() {
@@ -21,6 +26,11 @@ public class DBConfig {
         return new HikariDataSource(config);
     }
 }
+//    private static Connection getConnection() throws URISyntaxException, SQLException {
+//        String dbUrl = System.getenv("jdbc:mysql://localhost:8889/budgetize");
+//        return DriverManager.getConnection(dbUrl);
+//    }
+//}
 
 
 
@@ -28,7 +38,7 @@ public class DBConfig {
 //public class DBConfig {
 //
 //    @Bean
-//    public DataSource dataSource() throws URISyntaxException {
+//    public BasicDataSource dataSource() throws URISyntaxException {
 //        URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 //
 //        String username = dbUri.getUserInfo().split(":")[0];
